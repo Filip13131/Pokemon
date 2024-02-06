@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { ThemeContext } from './src/context/ThemeContext';
 import { ListView } from './src/screens/ListView/ListView';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { NavigationBar } from './src/components/NavigationBar/NavigationBar';
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -12,7 +13,7 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <View style={styles.container}>
           <ListView/>
-          <Text>Open up App.js to 32452352435start working on your app!</Text>
+          <NavigationBar/>
           <StatusBar style="auto" />
         </View>
       </QueryClientProvider>
@@ -24,7 +25,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

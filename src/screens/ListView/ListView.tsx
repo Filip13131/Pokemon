@@ -2,14 +2,14 @@ import { useContext } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import { ThemeContext } from "../../context/ThemeContext";
 import { FlashList } from "@shopify/flash-list";
-import { SafeAreaView } from "react-native-safe-area-context";
-import useFetchPokemon from "../../context/useFetchPokemon";
+import useFetchPokemons from "../../context/useFetchPokemons";
+import { PokemonCard } from "../../components/PokemonCard/PokemonCard";
 
 
 
 export function ListView(){
     const theme = useContext(ThemeContext);
-    const { data, isLoading, isError, hasNextPage, fetchNextPage } = useFetchPokemon();
+    const { data, isLoading, isError, hasNextPage, fetchNextPage } = useFetchPokemons();
 
     if (isLoading) {
         return (
@@ -30,13 +30,13 @@ export function ListView(){
           fetchNextPage();
         }
       };
-    console.log(flattenData);
-
+    // console.log(flattenData);
+    console.log(flattenData[1]);
     return (
       <View style= {theme === 'dark' ? styles.dark : styles.light}>
         <FlashList
           data={flattenData}
-          renderItem={({ item }) => <Text style= {{fontSize:20}}>{item.name}</Text>}
+          renderItem={({ item }) => <PokemonCard data = {item}/>}
           onEndReached={loadNext}
           onEndReachedThreshold={0.3}
           estimatedItemSize={100}

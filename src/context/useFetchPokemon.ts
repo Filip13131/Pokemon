@@ -1,14 +1,18 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
-export default function useFetchPokemon() {
-    const getPokemon = async ({ pageParam }) => {
-        return (await fetch(pageParam)).json();
-      }
-    
-      return useInfiniteQuery({
-        queryKey: ['pokemons'],
-        queryFn: getPokemon,
-        initialPageParam: `https://pokeapi.co/api/v2/pokemon?offset=0&limit=10`,
-        getNextPageParam: (lastPage) => lastPage.next,
-      })
+
+export default function useFetchPokemon(name : string){
+    // const getPokemon = async (queryKey) => {
+    //     const [_key, name] = queryKey;
+    //     console.log(name);
+    //     return (await fetch(;
+    // }
+    return useQuery({
+        queryKey:[`pokemon`],
+        queryFn : async ()=>{
+           return (await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)).json()
+        },
+
+    });
+
 }
