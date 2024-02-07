@@ -1,6 +1,6 @@
 import { View, StyleSheet, TouchableOpacity} from "react-native";
 
-export function HeartIcon(_props: {isFilled: boolean}){
+export function HeartIcon(props: {isFilled: boolean}){
     const _onPress = () =>{
         console.log("you pressed heart icon!");
     }
@@ -8,13 +8,19 @@ export function HeartIcon(_props: {isFilled: boolean}){
     return(
         <View style={styles.icon}>
             <TouchableOpacity onPress={_onPress} style={{flex:1}}>
-                <View></View>
+                <View style = {props.isFilled ? styles.filled : styles.unfilled}></View>
             </TouchableOpacity>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    filled:{
+        backgroundColor: "red",
+    },
+    unfilled:{
+        backgroundColor : "none",
+    },
     icon :{
         position: "absolute",
         display:"flex",

@@ -1,29 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import { ThemeContext } from './src/context/ThemeContext';
 import { ListView } from './src/screens/ListView/ListView';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { NavigationBar } from './src/components/NavigationBar/NavigationBar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { FavoriteView } from './src/screens/FavoriteView/FavoriteView';
+import { MapView } from './src/screens/MapView/MapView';
 
 export default function App() {
   const queryClient = new QueryClient();
+  const TabNavigator = createBottomTabNavigator();
+
 
   return (
-    <ThemeContext.Provider value={"light"}>
-      <QueryClientProvider client={queryClient}>
-        <View style={styles.container}>
-          <ListView/>
-          <NavigationBar/>
-          <StatusBar style="auto" />
-        </View>
-      </QueryClientProvider>
-    </ThemeContext.Provider>
+    <NavigationContainer>  
+      <ThemeContext.Provider value={"light"}>
+        <QueryClientProvider client={queryClient}>
+          <TabNavigator.Navigator screenOptions={{ headerShown: false }} initialRouteName="ListView">
+            <TabNavigator.Screen name="FavoriteView" component={FavoriteView}/>
+            <TabNavigator.Screen name="ListView" component={ListView}/>
+            <TabNavigator.Screen name="MapView" component={MapView}/>
+          </TabNavigator.Navigator>
+        </QueryClientProvider>
+      </ThemeContext.Provider>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
+
+// {/* <StatusBar style="auto" /> */}
