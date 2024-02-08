@@ -23,10 +23,8 @@ export default function App() {
       console.log(`favorite pokemon by name: ${name} removed`);
     }
     else{
-        const updatedFavoritePokemons = favoritePokemons;
-        updatedFavoritePokemons.push(name);
-        setFavoritePokemons(updatedFavoritePokemons);
-        console.log(`new favorite pokemon by name: ${name} added`);
+      setFavoritePokemons(favoritePokemons.concat([name]));
+      console.log(`new favorite pokemon by name: ${name} added`);
     }
   }
 

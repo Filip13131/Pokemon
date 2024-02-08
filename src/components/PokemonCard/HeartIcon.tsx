@@ -1,6 +1,6 @@
 import { View, StyleSheet, TouchableOpacity} from "react-native";
 import { FavoritePokemonsContext } from "../../context/FavoritePokemonsContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 export function HeartIcon(props: {name: string}){
     const {favoritePokemons, updateFavoritePokemons} : {favoritePokemons : Array<string>, updateFavoritePokemons: Function}= useContext(FavoritePokemonsContext);
