@@ -19,7 +19,7 @@ export function PokemonCard(props : {name: string} ){
                 })
                 setIsLoading(false);
             },
-            (_)=>{
+            ()=>{
                 setIsError(true);
                 setIsLoading(false);
             }

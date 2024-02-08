@@ -1,7 +1,5 @@
 import {Text} from 'react-native';
 import {SvgUri} from 'react-native-svg';
-import useFetchPokemon from '../../context/useFetchPokemon';
-import { useEffect, useState } from 'react';
 
 
 //TODO define data type for results of PokeAPI

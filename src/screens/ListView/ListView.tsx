@@ -23,7 +23,7 @@ export function ListView(){
         );
     } 
 
-    const flattenData = data.pages.flatMap((page : any) => page.results);
+    const flattenData = data.pages.flatMap((page) => page.results);
     
     const loadNext = () => {
         if (hasNextPage) {
