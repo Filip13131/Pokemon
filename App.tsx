@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FavoriteView } from './src/screens/FavoriteView/FavoriteView';
-import { MapView } from './src/screens/MapView/MapView';
+import { WorldView } from './src/screens/MapView/WorldView';
 import { useEffect, useState } from 'react';
 import { FavoritePokemonsContext } from './src/context/FavoritePokemonsContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -62,7 +62,7 @@ export default function App() {
             <TabNavigator.Navigator screenOptions={{ headerShown: false }} initialRouteName="ListView">
               <TabNavigator.Screen name="FavoriteView" component={FavoriteView}/>
               <TabNavigator.Screen name="ListView" component={ListView}/>
-              <TabNavigator.Screen name="MapView" component={MapView}/>
+              <TabNavigator.Screen name="MapView" component={WorldView}/>
             </TabNavigator.Navigator>
           </QueryClientProvider>
         </ThemeContext.Provider>
