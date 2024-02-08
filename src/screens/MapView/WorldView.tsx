@@ -22,7 +22,6 @@ export function WorldView() {
           for (const ability of json.abilities){
             abilities.push(ability.ability.name);
           }
-          console.log(json.sprites.other.dream_world.front_default);
           const pokemonOnMap : pokemonOnMap = {
             name: json.name,
             coordinate: e.coordinate,

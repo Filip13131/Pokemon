@@ -1,16 +1,15 @@
 import { View, StyleSheet, Text} from "react-native";
 import { HeartIcon } from "./HeartIcon";
 import { PokemonImage } from "./PokemonImage";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 export function PokemonCard(props : {name: string} ){
+    const lastCardNameId = useRef(props.name);
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
     const [data, setData] = useState(null);
-    
-    useEffect(()=>{
-        setIsLoading(true);
+    const fetchPokemonData= ()=>{
         const response = fetch(`https://pokeapi.co/api/v2/pokemon/${props.name}`);
         response.then(
             (result)=>{
@@ -24,7 +23,19 @@ export function PokemonCard(props : {name: string} ){
                 setIsLoading(false);
             }
         );
-    },[props.name]);
+    }
+
+    if (props.name !== lastCardNameId.current) {
+        lastCardNameId.current = props.name;
+        setIsLoading(true);
+        setData(null);
+        setIsError(false);
+        fetchPokemonData();
+    }
+
+    useEffect(()=>{fetchPokemonData()},[]);
+      
+    
 
     return(
         <View style= {styles.container}>
