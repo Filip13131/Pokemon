@@ -1,14 +1,18 @@
 import { View, StyleSheet, TouchableOpacity} from "react-native";
+import { FavoritePokemonsContext } from "../../context/FavoritePokemonsContext";
+import { useContext } from "react";
 
-export function HeartIcon(props: {isFilled: boolean}){
-    const _onPress = () =>{
+export function HeartIcon(props: {name: string}){
+    const {favoritePokemons, updateFavoritePokemons} : {favoritePokemons : Array<string>, updateFavoritePokemons: Function}= useContext(FavoritePokemonsContext);
+    const _onPress = async () =>{
+        updateFavoritePokemons(props.name);
         console.log("you pressed heart icon!");
     }
 
     return(
         <View style={styles.icon}>
             <TouchableOpacity onPress={_onPress} style={{flex:1}}>
-                <View style = {props.isFilled ? styles.filled : styles.unfilled}></View>
+                <View style = {favoritePokemons.includes(props.name) ? styles.filled : styles.unfilled}></View>
             </TouchableOpacity>
         </View>
     )
@@ -17,6 +21,8 @@ export function HeartIcon(props: {isFilled: boolean}){
 const styles = StyleSheet.create({
     filled:{
         backgroundColor: "red",
+        flex:1,
+        borderRadius: 20,
     },
     unfilled:{
         backgroundColor : "none",

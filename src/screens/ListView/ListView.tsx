@@ -30,13 +30,13 @@ export function ListView(){
           fetchNextPage();
         }
       };
-    // console.log(flattenData);
-    console.log(flattenData[1]);
+
     return (
       <View style= {theme === 'dark' ? styles.dark : styles.light}>
         <FlashList
+          keyExtractor={(item)=>item.name}
           data={flattenData}
-          renderItem={({ item }) => <PokemonCard data = {item}/>}
+          renderItem={({ item }) => <PokemonCard name = {item.name}/>}
           onEndReached={loadNext}
           onEndReachedThreshold={0.3}
           estimatedItemSize={100}

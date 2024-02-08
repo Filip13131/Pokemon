@@ -1,22 +1,39 @@
 import { View, StyleSheet, Text} from "react-native";
 import { HeartIcon } from "./HeartIcon";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { PokemonImage } from "./PokemonImage";
+import { useEffect, useState } from "react";
 
-//TODO define data type for results of PokeAPI
-export function PokemonCard(props : {data: any} ){
-    const queryClient = new QueryClient();
-   
+
+export function PokemonCard(props : {name: string} ){
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
+    const [data, setData] = useState(null);
+    
+    useEffect(()=>{
+        setIsLoading(true);
+        const response = fetch(`https://pokeapi.co/api/v2/pokemon/${props.name}`);
+        response.then(
+            (result)=>{
+                result.json().then((json)=>{
+                    setData(json);
+                })
+                setIsLoading(false);
+            },
+            (_)=>{
+                setIsError(true);
+                setIsLoading(false);
+            }
+        );
+    },[props.name]);
+
     return(
-        <QueryClientProvider client={queryClient}>
-            <View style= {styles.container}>
-                <View style={styles.pokemonCard}>
-                    <HeartIcon isFilled={false}/>
-                    <PokemonImage name={props.data.name}></PokemonImage>
-                    <Text style = {styles.pokemonName}>{props.data.name.toUpperCase()}</Text>
-                </View>
+        <View style= {styles.container}>
+            <View style={styles.pokemonCard}>
+                <HeartIcon name={props.name}/>
+                <PokemonImage SVGURI={data?.sprites?.other?.dream_world?.front_default} isError={isError} isLoading={isLoading}></PokemonImage>
+                <Text style = {styles.pokemonName}>{props.name.toUpperCase()}</Text>
             </View>
-        </QueryClientProvider>
+        </View>
     )
 
 
